@@ -1,0 +1,16 @@
+@(table: TextTable)
+
+<table>
+	<tr>
+		@for(col <- table.columnNames){
+			<th>@col</th>
+		}
+	</tr>
+	@for(row <- table.rows){
+		<tr>
+			@for(cell <- row){
+				<td>@cell</td>
+			}
+		</tr>
+	}
+</table>

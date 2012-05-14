@@ -1,0 +1,5 @@
+GET	/	controllers.Application.index
+
+GET	/sparql	controllers.Application.sparql
+
+#GET	/assets/*file	controllers.Assets.at(path="/public", file)
