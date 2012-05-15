@@ -17,8 +17,10 @@ object Application extends Controller {
 		request.queryString("query").headOption match{
 		  	case None => Ok(views.html.error("No query was provided!"))
 		  	case Some(query) => 
-		  	  val reply = SparqlSelectRunner().evaluate(query)
-		  	  Ok(views.html.sparql(reply))
+		  	  SparqlSelectRunner().evaluate(query) match{
+		  	    case Left(errorMsg) => Ok(views.html.error(errorMsg))
+		  	    case Right(reply) => Ok(views.html.sparql(reply))
+		  	  }
 		}
 	}
 

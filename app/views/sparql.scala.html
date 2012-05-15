@@ -1,16 +1,18 @@
 @(table: TextTable)
-
-<table>
-	<tr>
-		@for(col <- table.columnNames){
-			<th>@col</th>
-		}
-	</tr>
-	@for(row <- table.rows){
+@import models.Util
+@main(title = "Query Results"){
+	<table>
 		<tr>
-			@for(cell <- row){
-				<td>@cell</td>
+			@for(col <- table.columnNames){
+				<th>@col</th>
 			}
 		</tr>
-	}
-</table>
+		@for(row <- table.rows){
+			<tr>
+				@for(cell <- row){
+					<td>@Util.decorateIfUrl(cell)</td>
+				}
+			</tr>
+		}
+	</table>
+}

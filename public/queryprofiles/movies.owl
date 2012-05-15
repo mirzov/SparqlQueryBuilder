@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns="http://www.dbpediaquery.info/profile/movies.owl#"
+    xmlns:dbp="http://dbpedia.org/property/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:dbo="http://dbpedia.org/ontology/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://www.dbpediaquery.info/profile/movies.owl">
+  <owl:Ontology rdf:about=""/>
+  <owl:Class rdf:about="http://dbpedia.org/ontology/Film"/>
+  <owl:Class rdf:about="http://dbpedia.org/ontology/Person"/>
+  <owl:ObjectProperty rdf:about="http://dbpedia.org/property/director">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Director</rdfs:label>
+    <rdfs:range rdf:resource="http://dbpedia.org/ontology/Person"/>
+    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Film"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/starring">
+    <rdfs:range rdf:resource="http://dbpedia.org/ontology/Person"/>
+    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Film"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >starring</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://dbpedia.org/property/name">
+    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4.7, Build 620)  http://protege.stanford.edu -->

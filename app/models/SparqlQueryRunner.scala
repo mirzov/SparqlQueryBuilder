@@ -9,14 +9,18 @@ import java.io.Closeable
 
 class SparqlSelectRunner(repo: Repository) extends Closeable{
 
-	def evaluate(query: String): SparqlTextTable = {
+	def evaluate(query: String): Either[String,SparqlTextTable] = {
 		val conn = repo.getConnection
 		try{
 			//val str = new SPARQLResultsTSVWriter(Console.out)
 			val handler = new TupleQueryResultBuilder()
 			conn.prepareTupleQuery(QueryLanguage.SPARQL, query).evaluate(handler)
-			new SparqlTextTable(handler.getQueryResult)
-		}finally{conn.close()}
+			Right(new SparqlTextTable(handler.getQueryResult))
+		}
+		catch{
+		  	case e: Exception => Left(e.getMessage)
+		}
+		finally{conn.close()}
 	}
 
 	override def close(){

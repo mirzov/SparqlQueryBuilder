@@ -20,7 +20,7 @@ class SparqlTextTable(qRes: TupleQueryResult) extends TextTable {
 			val next = tqr.next()
 			val row = columnNames.map(valueToStr(next, _)).toArray
 			Stream.cons(new SparqlTableRow(row), getResStream(tqr))
-		}else {println("closing qRes...");tqr.close();println("closed"); Stream.Empty}
+		}else {tqr.close(); Stream.Empty}
 	}
 	
 	def valueToStr(bindSet: BindingSet, vName: String): String = {
