@@ -1,0 +1,14 @@
+#queryeditor{
+	float:left;
+	width:49%;
+}
+
+#queryeditor > textarea{
+	width:100%;
+	resize:none;
+}
+
+#sparqlresults{
+	float:right;
+	width:49%;
+}

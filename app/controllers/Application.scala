@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 import models._
+import play.api.templates.Html
 //import play.api.templates.Html
 
 object Application extends Controller {
@@ -14,13 +15,13 @@ object Application extends Controller {
 	}
 	
 	def sparql = Action{ request =>
-		request.queryString("query").headOption match{
-		  	case None => Ok(views.html.error("No query was provided!"))
-		  	case Some(query) => 
+		request.queryString.get("query").map(_.toList) match{
+		  	case Some(query :: _) => 
 		  	  SparqlSelectRunner().evaluate(query) match{
-		  	    case Left(errorMsg) => Ok(views.html.error(errorMsg))
+		  	    case Left(errorMsg) => Ok(Html(errorMsg))
 		  	    case Right(reply) => Ok(views.html.sparql(reply))
 		  	  }
+		  	case _ => Ok(Html("No query was provided!"))
 		}
 	}
 

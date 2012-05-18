@@ -1,9 +1,36 @@
+@import models.onto.{Ontology => onto}
 @main(title = "Write Query"){
 
+	<script src="@routes.Assets.at("javascripts/index.js")"></script>
+	
+	<ul>
+		@for(dataProp <- onto.dataProps){
+			<li>@{onto.getLabel(dataProp)} (datatype property), has domains:<br/>
+				<ul>
+					@for(cls <- onto.getClassesInDomainOf(dataProp)){
+						<li>@onto.getLabel(cls)</li>
+					}
+				</ul>
+			</li>
+		}
+		@for(objProp <- onto.objProps){
+			<li><span title="@objProp.getIRI.toString" onclick="addUrlResToQuery(this.title);">@{onto.getLabel(objProp)}</span> (object property), has domains:<br/>
+				<ul>
+					@for(cls <- onto.getClassesInDomainOf(objProp)){
+						<li>@onto.getLabel(cls)</li>
+					}
+				</ul>
+			</li>
+		}
+	</ul>
+	
 	<h1>Edit the SPARQL query manually</h1>
-	<form method="get" action="sparql">
-		<textarea rows="20" cols="80" name="query"></textarea>
-		<input type="submit" value="Evaluate query"/>
-	</form>
-
+	
+	<div id="queryeditor">
+		<textarea rows="20" id="querytext">select * where{?s rdfs:label "Scala"@@en}</textarea><br/>
+		<input type="submit" value="Evaluate query" onclick="evalSparql();"/>
+	</div>
+	
+	<div id="sparqlresults"></div>
+	
 }

@@ -8,6 +8,8 @@ object ApplicationBuild extends Build {
   val appVersion      = "1.0"
  
   val appDependencies = Seq(
+//		"org.openrdf.sesame" % "sesame-repository-sail" % "2.6.5" withJavadoc(),
+//		"org.openrdf.sesame" % "sesame-sail-memory" % "2.6.5" withJavadoc(),
 		"org.openrdf.sesame" % "sesame-repository-sparql" % "2.6.5" withJavadoc(),
 		"org.openrdf.sesame" % "sesame-queryresultio-text" % "2.6.5" withJavadoc(),
 		//"org.slf4j" % "slf4j-simple" % "1.6.1",
