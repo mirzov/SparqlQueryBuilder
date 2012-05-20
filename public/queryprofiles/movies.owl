@@ -4,6 +4,7 @@
     xmlns:dbp="http://dbpedia.org/property/"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
@@ -13,13 +14,46 @@
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xml:base="http://www.dbpediaquery.info/profile/movies.owl">
   <owl:Ontology rdf:about=""/>
-  <owl:Class rdf:about="http://dbpedia.org/ontology/Film"/>
-  <owl:Class rdf:about="http://dbpedia.org/ontology/Person"/>
+  <owl:Class rdf:about="http://dbpedia.org/ontology/Country">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Country</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="http://dbpedia.org/ontology/Film">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Film</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="http://dbpedia.org/ontology/Place">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Place</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="http://dbpedia.org/ontology/Person">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Person</rdfs:label>
+  </owl:Class>
+  <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/country">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >country</rdfs:label>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="http://dbpedia.org/ontology/Film"/>
+          <owl:Class rdf:about="http://dbpedia.org/ontology/Place"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="http://dbpedia.org/ontology/Country"/>
+  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://dbpedia.org/property/director">
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >Director</rdfs:label>
     <rdfs:range rdf:resource="http://dbpedia.org/ontology/Person"/>
     <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Film"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/birthPlace">
+    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
+    <rdfs:range rdf:resource="http://dbpedia.org/ontology/Place"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >birth place</rdfs:label>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/starring">
     <rdfs:range rdf:resource="http://dbpedia.org/ontology/Person"/>
@@ -27,12 +61,30 @@
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >starring</rdfs:label>
   </owl:ObjectProperty>
-  <owl:DatatypeProperty rdf:about="http://dbpedia.org/property/name">
-    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
+  <owl:DatatypeProperty rdf:about="http://dbpedia.org/property/country">
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >Name</rdfs:label>
+    >country name</rdfs:label>
+    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Film"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://xmlns.com/foaf/0.1/name">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >name</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://dbpedia.org/ontology/releaseDate">
+    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Film"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >release date</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:about="http://dbpedia.org/ontology/birthDate">
+    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >birth date</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
 </rdf:RDF>
 
 <!-- Created with Protege (with OWL Plugin 3.4.7, Build 620)  http://protege.stanford.edu -->

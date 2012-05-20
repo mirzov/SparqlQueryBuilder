@@ -1,6 +1,6 @@
 #queryeditor{
 	float:left;
-	width:49%;
+	width:39%;
 }
 
 #queryeditor > textarea{
@@ -10,5 +10,17 @@
 
 #sparqlresults{
 	float:right;
-	width:49%;
+	width:59%;
+}
+
+.owlClass{
+	color:red;
+}
+
+.dataProp{
+	color:green;
+}
+
+.objProp{
+	color:blue;
 }

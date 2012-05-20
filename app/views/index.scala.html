@@ -1,36 +1,52 @@
-@import models.onto.{Ontology => onto}
-@main(title = "Write Query"){
+@(onto: models.onto.Ontology, qryText: String = "select * where{?s rdfs:label \"Scala\"@en}")
+
+@owlentity(entity: org.semanticweb.owlapi.model.OWLEntity, cssclass: String) = {
+	<span class="@cssclass" title="@entity.getIRI.toString" onclick="addUrlResToQuery(this.title);">@{onto.getLabel(entity)}</span>
+}
+
+@classList(header: String, clses: Seq[org.semanticweb.owlapi.model.OWLClass]) = {
+	<li>@{header}: 
+		@for(cls <- clses){
+			@owlentity(cls, "owlClass")
+		}
+	</li>
+}
+
+@main(title = "SPARQL Query Builder"){
 
 	<script src="@routes.Assets.at("javascripts/index.js")"></script>
-	
-	<ul>
-		@for(dataProp <- onto.dataProps){
-			<li>@{onto.getLabel(dataProp)} (datatype property), has domains:<br/>
-				<ul>
-					@for(cls <- onto.getClassesInDomainOf(dataProp)){
-						<li>@onto.getLabel(cls)</li>
-					}
-				</ul>
-			</li>
-		}
-		@for(objProp <- onto.objProps){
-			<li><span title="@objProp.getIRI.toString" onclick="addUrlResToQuery(this.title);">@{onto.getLabel(objProp)}</span> (object property), has domains:<br/>
-				<ul>
-					@for(cls <- onto.getClassesInDomainOf(objProp)){
-						<li>@onto.getLabel(cls)</li>
-					}
-				</ul>
-			</li>
-		}
-	</ul>
-	
-	<h1>Edit the SPARQL query manually</h1>
+	<script>$(evalSparql)</script>
 	
 	<div id="queryeditor">
-		<textarea rows="20" id="querytext">select * where{?s rdfs:label "Scala"@@en}</textarea><br/>
+		<h2>Query editor</h2>
+	
+		<textarea rows="20" id="querytext">@qryText</textarea><br/>
 		<input type="submit" value="Evaluate query" onclick="evalSparql();"/>
+		
+		<div id="ontologyView">
+			<h2>Query profile</h2>
+			<ul>
+				@for(dataProp <- onto.dataProps){
+					<li>@owlentity(dataProp, "dataProp")<br/>
+						<ul>@classList("Domains", onto.getClassesInDomainOf(dataProp))
+							<li>Range: @onto.getDataType(dataProp).getIRI</li>
+						</ul>
+					</li>
+				}
+				@for(objProp <- onto.objProps){
+					<li>@owlentity(objProp, "objProp")<br/>
+						<ul>
+							@classList("Domains", onto.getClassesInDomainOf(objProp))
+							@classList("Ranges", onto.getClassesInRangeOf(objProp))
+						</ul>
+					</li>
+				}
+			</ul>
+		</div>
 	</div>
 	
-	<div id="sparqlresults"></div>
-	
+	<div id="sparqlresults">
+		<h2>Query results</h2>
+		<div id="sparqlresultstable"></div>
+	</div>
 }
