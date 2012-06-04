@@ -6,11 +6,18 @@ import org.semanticweb.owlapi.apibinding.OWLManager
 import org.semanticweb.owlapi.model._
 
 object Ontology{
-	def apply(ontId: String): Ontology = {
+	def apply(ontId: String): Option[Ontology] = {
 		val istream = getClass.getClassLoader.getResourceAsStream("public/queryprofiles/" + ontId + ".owl")
-		val owlManager = OWLManager.createOWLOntologyManager
-		val ontology = owlManager.loadOntologyFromOntologyDocument(istream);
-		new Ontology()(ontology)
+		if(istream == null) None
+		else {
+			try{
+				val owlManager = OWLManager.createOWLOntologyManager
+				val ontology = owlManager.loadOntologyFromOntologyDocument(istream);
+				Some(new Ontology(ontology))
+			}catch{
+			  	case _ => None
+			}
+		}
 	}
 	
 	private def contains(clsExpr: OWLClassExpression, cls: OWLClass): Boolean = 
@@ -18,11 +25,12 @@ object Ontology{
 	
 }
 
-class Ontology private (implicit val ontology: OWLOntology) {
+class Ontology private (val ontology: OWLOntology) {
 
 	import Implicits._
 	import Ontology._
 	
+	private implicit val onto = ontology
 	val classes: Seq[OWLClass] = ontology.getClassesInSignature.toSeq
 
 	val dataProps: Seq[OWLDataProperty] = ontology.getDataPropertiesInSignature.toSeq

@@ -15,12 +15,15 @@
 
 .owlClass{
 	color:red;
+	cursor:url(/assets/images/cursoradd.png),auto;
 }
 
 .dataProp{
 	color:green;
+	cursor:url(/assets/images/cursoradd.png),auto;
 }
 
 .objProp{
 	color:blue;
+	cursor:url(/assets/images/cursoradd.png),auto;
 }
