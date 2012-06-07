@@ -2,7 +2,6 @@ logs
 target
 project/project
 project/target
-public/queryprofiles/*.pprj
 public/queryprofiles/*.repository
 dist
 .project

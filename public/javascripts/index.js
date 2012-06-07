@@ -1,9 +1,17 @@
 function evalSparql(){
-	$('#sparqlresultstable').html('<p>Fetching SPARQL results ...</p>');
+	$('#sparqlResultsTable').html('<p>Fetching SPARQL results ...</p>');
 	var qtext = $('#querytext').get(0).value;
 	var url = '/sparql?query=' + encodeURIComponent(qtext);
 	$.get(url, function(data){
-		$('#sparqlresultstable').html(data);
+		$('#sparqlResultsTable').html(data);
+	});
+}
+
+function getQueryProfile(qProfile){
+	$('#queryProfileList').html('<p>Fetching query profile ...</p>');
+	var url = '/qprofile?id=' + qProfile;
+	$.get(url, function(data){
+		$('#queryProfileList').html(data);
 	});
 }
 

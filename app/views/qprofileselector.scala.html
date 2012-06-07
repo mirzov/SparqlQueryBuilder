@@ -1,0 +1,10 @@
+@()
+@import models.QueryProfiles
+
+<p>Select query profile:&nbsp;
+	<select onchange="getQueryProfile(this.options[this.selectedIndex].value)">
+		@for(qp <- QueryProfiles.all){
+			<option value="@qp.id">@qp.description</option>
+		}
+	</select>
+</p>

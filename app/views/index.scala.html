@@ -1,52 +1,29 @@
-@(onto: models.onto.Ontology, qryText: String = "select * where{?s rdfs:label \"Scala\"@en}")
-
-@owlentity(entity: org.semanticweb.owlapi.model.OWLEntity, cssclass: String) = {
-	<span class="@cssclass" title="@entity.getIRI.toString" onclick="addUrlResToQuery(this.title);">@{onto.getLabel(entity)}</span>
-}
-
-@classList(header: String, clses: Seq[org.semanticweb.owlapi.model.OWLClass]) = {
-	<li>@{header}: 
-		@for(cls <- clses){
-			@owlentity(cls, "owlClass")
-		}
-	</li>
-}
+@(qProfile: String, qryText: String = "select * where{?s rdfs:label \"Scala\"@en}")
 
 @main(title = "SPARQL Query Builder"){
 
 	<script src="@routes.Assets.at("javascripts/index.js")"></script>
-	<script>$(evalSparql)</script>
+	<script>$(function(){
+					evalSparql();
+					getQueryProfile('@{qProfile}');
+				})</script>
 	
 	<div id="queryeditor">
 		<h2>Query editor</h2>
 	
+		@qprofileselector()
+	
 		<textarea rows="20" id="querytext">@qryText</textarea><br/>
 		<input type="submit" value="Evaluate query" onclick="evalSparql();"/>
 		
-		<div id="ontologyView">
+		<div id="queryProfile">
 			<h2>Query profile</h2>
-			<ul>
-				@for(dataProp <- onto.dataProps){
-					<li>@owlentity(dataProp, "dataProp")<br/>
-						<ul>@classList("Domains", onto.getClassesInDomainOf(dataProp))
-							<li>Range: @onto.getDataType(dataProp).getIRI</li>
-						</ul>
-					</li>
-				}
-				@for(objProp <- onto.objProps){
-					<li>@owlentity(objProp, "objProp")<br/>
-						<ul>
-							@classList("Domains", onto.getClassesInDomainOf(objProp))
-							@classList("Ranges", onto.getClassesInRangeOf(objProp))
-						</ul>
-					</li>
-				}
-			</ul>
+			<div id="queryProfileList"></div>
 		</div>
 	</div>
 	
 	<div id="sparqlresults">
 		<h2>Query results</h2>
-		<div id="sparqlresultstable"></div>
+		<div id="sparqlResultsTable"></div>
 	</div>
 }

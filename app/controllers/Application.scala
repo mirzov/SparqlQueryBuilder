@@ -13,14 +13,10 @@ object Application extends Controller {
 
 
 	def index = Action { request =>
-	  	val ontoId = request.queryString.get("qprofile").map(_.toList) match{
-	  	  	case Some(qpId :: _) => qpId
-	  	  	case _ => QueryProfiles.default.id
-	  	}
-	  	val onto = Ontology(ontoId).getOrElse(Ontology(QueryProfiles.default.id).get)
+	    val qProfileId = QueryProfiles.default.id
 		request.queryString.get("query").map(_.toList) match{
-		  	case Some(query :: _) => Ok(views.html.index(onto, query))
-		  	case _ => Ok(views.html.index(onto))
+		  	case Some(query :: _) => Ok(views.html.index(qProfileId, query))
+		  	case _ => Ok(views.html.index(qProfileId))
 		}
 		
 
@@ -37,4 +33,13 @@ object Application extends Controller {
 		}
 	}
 
+	def qprofile = Action { request =>
+	  	val ontoId = request.queryString.get("id").map(_.toList) match{
+	  	  	case Some(qpId :: _) => qpId
+	  	  	case _ => QueryProfiles.default.id
+	  	}
+	  	val onto = Ontology(ontoId).getOrElse(Ontology(QueryProfiles.default.id).get)
+		Ok(views.html.qprofile(onto))
+	}
+	
 }

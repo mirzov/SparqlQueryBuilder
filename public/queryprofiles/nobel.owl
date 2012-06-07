@@ -1,66 +1,61 @@
-<?xml version="1.0"?>
-<rdf:RDF
-    xmlns:j.0="http://www.dbpediaquery.info/profile/movies.owl#"
-    xmlns:dbp="http://dbpedia.org/property/"
-    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
-    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
-    xmlns:dpr="http://dbpedia.org/resource/"
-    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:foaf="http://xmlns.com/foaf/0.1/"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
-    xmlns="http://www.dbpediaquery.info/profile/nobel.owl#"
-    xmlns:dbo="http://dbpedia.org/ontology/"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-  xml:base="http://www.dbpediaquery.info/profile/nobel.owl">
-  <owl:Ontology rdf:about=""/>
-  <owl:Class rdf:about="http://dbpedia.org/ontology/Country">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >Country</rdfs:label>
-  </owl:Class>
-  <owl:Class rdf:ID="NobelPrize">
-    <owl:equivalentClass>
-      <owl:Class>
-        <owl:oneOf rdf:parseType="Collection">
-          <NobelPrize rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Chemistry"/>
-          <NobelPrize rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Literature"/>
-          <NobelPrize rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Physics"/>
-        </owl:oneOf>
-      </owl:Class>
-    </owl:equivalentClass>
-  </owl:Class>
-  <owl:Class rdf:about="http://dbpedia.org/ontology/Place">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >Place</rdfs:label>
-  </owl:Class>
-  <owl:Class rdf:about="http://dbpedia.org/ontology/Person">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >Person</rdfs:label>
-  </owl:Class>
-  <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/award">
-    <rdfs:range rdf:resource="#NobelPrize"/>
-    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/birthPlace">
-    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
-    <rdfs:range rdf:resource="http://dbpedia.org/ontology/Place"/>
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >birth place</rdfs:label>
-  </owl:ObjectProperty>
-  <owl:DatatypeProperty rdf:about="http://xmlns.com/foaf/0.1/name">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >name</rdfs:label>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://dbpedia.org/ontology/birthDate">
-    <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >birth date</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-  </owl:DatatypeProperty>
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="http://www.dbpediaquery.info/profile/nobel.owl#"
+     xml:base="http://www.dbpediaquery.info/profile/nobel.owl"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:dpr="http://dbpedia.org/resource/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:j.0="http://www.dbpediaquery.info/profile/movies.owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:dbo="http://dbpedia.org/ontology/"
+     xmlns:dbp="http://dbpedia.org/property/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about=""/>
+    <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/award">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">award</rdfs:label>
+        <rdfs:range rdf:resource="#NobelPrize"/>
+    </owl:ObjectProperty>
+    <owl:DatatypeProperty rdf:about="http://dbpedia.org/ontology/birthDate">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">birth date</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    </owl:DatatypeProperty>
+    <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/birthPlace">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">birth place</rdfs:label>
+        <rdfs:range rdf:resource="http://dbpedia.org/ontology/Place"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:about="http://dbpedia.org/ontology/Country">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Country</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="http://dbpedia.org/ontology/Person">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Person</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="http://dbpedia.org/ontology/Place">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Place</rdfs:label>
+    </owl:Class>
+    <NobelPrize rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Chemistry"/>
+    <NobelPrize rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Literature"/>
+    <NobelPrize rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Physics"/>
+    <owl:DatatypeProperty rdf:about="http://xmlns.com/foaf/0.1/name">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="NobelPrize">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Chemistry"/>
+                    <rdf:Description rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Literature"/>
+                    <rdf:Description rdf:about="http://dbpedia.org/resource/Nobel_Prize_in_Physics"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
 </rdf:RDF>
-
-<!-- Created with Protege (with OWL Plugin 3.4.7, Build 620)  http://protege.stanford.edu -->

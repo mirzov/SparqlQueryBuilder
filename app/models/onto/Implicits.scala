@@ -20,7 +20,7 @@ object Implicits {
 
 	class SesameRepoWithConnectionHandling(inner: Repository){
 	  
-		def access(body: RepositoryConnection => Unit){
+		def access[T](body: RepositoryConnection => T): T = {
 			val conn = inner.getConnection
 			try{
 				body(conn)

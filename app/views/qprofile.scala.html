@@ -1,0 +1,25 @@
+@(onto: models.onto.Ontology)
+
+@import views.Helpers
+
+
+@owlentity(entity: org.semanticweb.owlapi.model.OWLEntity, cssclass: String) = {
+	<span class="@cssclass" title="@entity.getIRI.toString" onclick="addUrlResToQuery(this.title);">@{onto.getLabel(entity)}</span>
+}
+
+@classList(clses: Seq[org.semanticweb.owlapi.model.OWLClass]) = {
+	<span>(@Helpers.joinWithSep(clses.map(owlentity(_, "owlClass")), Html("<span>&cup;</span>")))</span>
+}
+
+<ul>
+	@for(dataProp <- onto.dataProps){
+		<li>@owlentity(dataProp, "dataProp"):
+			@classList(onto.getClassesInDomainOf(dataProp)) &nbsp;&rarr;&nbsp; @onto.getDataTypeLabel(dataProp)
+		</li>
+	}
+	@for(objProp <- onto.objProps){
+		<li>@owlentity(objProp, "objProp"):
+			@classList(onto.getClassesInDomainOf(objProp)) &nbsp;&rarr;&nbsp; @classList(onto.getClassesInRangeOf(objProp))
+		</li>
+	}
+</ul>

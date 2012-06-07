@@ -50,7 +50,9 @@ class Ontology private (val ontology: OWLOntology) {
 	  	prop.getRanges(ontology).forall(contains(_, cls))
 	}
 	
-	def getDataType(prop: OWLDataProperty): OWLDatatype = {
-		prop.getRanges(ontology).head.asOWLDatatype
+	def getDataTypeLabel(prop: OWLDataProperty): String = {
+		val dtUri = prop.getRanges(ontology).head.asOWLDatatype.getIRI.toString
+		val xsd = "http://www.w3.org/2001/XMLSchema#"
+		if(dtUri.startsWith(xsd)) "xsd:" + dtUri.stripPrefix(xsd) else dtUri
 	}
 }
