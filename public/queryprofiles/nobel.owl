@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF xmlns="http://www.dbpediaquery.info/profile/nobel.owl#"
      xml:base="http://www.dbpediaquery.info/profile/nobel.owl"
-     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
-     xmlns:dpr="http://dbpedia.org/resource/"
-     xmlns:foaf="http://xmlns.com/foaf/0.1/"
-     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
-     xmlns:j.0="http://www.dbpediaquery.info/profile/movies.owl#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:dpr="http://dbpedia.org/resource/"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
      xmlns:dbo="http://dbpedia.org/ontology/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
      xmlns:dbp="http://dbpedia.org/property/"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about=""/>
     <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/award">

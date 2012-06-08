@@ -1,4 +1,4 @@
-; Fri Jun 08 15:40:16 CEST 2012
+; Fri Jun 08 16:11:35 CEST 2012
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -6,11 +6,11 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[nobel_ProjectKB_Class61]
-		[nobel_ProjectKB_Class62]
-		[nobel_ProjectKB_Class63]
-		[nobel_ProjectKB_Class64]
-		[nobel_ProjectKB_Class65]))
+		[proglangs_ProjectKB_Class99]
+		[proglangs_ProjectKB_Class100]
+		[proglangs_ProjectKB_Class101]
+		[proglangs_ProjectKB_Class102]
+		[proglangs_ProjectKB_Class103]))
 
 ([CLSES_TAB] of  Widget
 
@@ -695,7 +695,7 @@
 ([KB_325529_Class4] of  String
 
 	(name "owl_file_name")
-	(string_value "nobel.owl"))
+	(string_value "proglangs.owl"))
 
 ([KB_444675_Instance_0] of  String
 
@@ -5531,31 +5531,6 @@
 ([nobel_ProjectKB_Class60] of  Property_List
 )
 
-([nobel_ProjectKB_Class61] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([nobel_ProjectKB_Class62] of  String
-
-	(name "http://www.w3.org/2002/07/owl#Class")
-	(string_value "%3ANAME"))
-
-([nobel_ProjectKB_Class63] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([nobel_ProjectKB_Class64] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([nobel_ProjectKB_Class65] of  String
-
-	(name "http://www.w3.org/2002/07/owl#Thing")
-	(string_value "%3ANAME"))
-
 ([nobel_ProjectKB_Class66] of  String
 
 	(name "edu.stanford.smi.protegex.owl.jena.JenaOWLModel.writer")
@@ -5601,6 +5576,152 @@
 	(width 603)
 	(x 0)
 	(y 0))
+
+([proglangs_ProjectKB_Class100] of  String
+
+	(name "http://www.w3.org/2002/07/owl#Class")
+	(string_value "%3ANAME"))
+
+([proglangs_ProjectKB_Class101] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([proglangs_ProjectKB_Class102] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([proglangs_ProjectKB_Class103] of  String
+
+	(name "http://www.w3.org/2002/07/owl#Thing")
+	(string_value "%3ANAME"))
+
+([proglangs_ProjectKB_Class71] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://www.dbpediaquery.info/profile/nobel.owl#NobelPrize")
+	(property_list [proglangs_ProjectKB_Class74])
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.OWLFormWidget"))
+
+([proglangs_ProjectKB_Class74] of  Property_List
+
+	(properties
+		[proglangs_ProjectKB_Class75]
+		[proglangs_ProjectKB_Class78]
+		[proglangs_ProjectKB_Class81]
+		[proglangs_ProjectKB_Class84]
+		[proglangs_ProjectKB_Class86]
+		[proglangs_ProjectKB_Class88]
+		[proglangs_ProjectKB_Class90]
+		[proglangs_ProjectKB_Class92]))
+
+([proglangs_ProjectKB_Class75] of  Widget
+
+	(height 0)
+	(is_hidden FALSE)
+	(label "Name")
+	(name ":NAME")
+	(property_list [proglangs_ProjectKB_Class76])
+	(width 0)
+	(x 0)
+	(y 0))
+
+([proglangs_ProjectKB_Class76] of  Property_List
+
+	(properties [proglangs_ProjectKB_Class77]))
+
+([proglangs_ProjectKB_Class77] of  Boolean
+
+	(boolean_value TRUE)
+	(name "DisabledByUser"))
+
+([proglangs_ProjectKB_Class78] of  Property_List
+
+	(name "layout properties")
+	(properties
+		[proglangs_ProjectKB_Class79]
+		[proglangs_ProjectKB_Class80]))
+
+([proglangs_ProjectKB_Class79] of  String
+
+	(name "horizontal_stretcher")
+	(string_value "<<all>>"))
+
+([proglangs_ProjectKB_Class80] of  String
+
+	(name "vertical_stretcher")
+	(string_value "<<none>>"))
+
+([proglangs_ProjectKB_Class81] of  Widget
+
+	(height 180)
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#inferredType")
+	(property_list [proglangs_ProjectKB_Class82])
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.HeaderWidget")
+	(width 550)
+	(x 0)
+	(y 0))
+
+([proglangs_ProjectKB_Class82] of  Property_List
+
+	(properties [proglangs_ProjectKB_Class83]))
+
+([proglangs_ProjectKB_Class83] of  Boolean
+
+	(boolean_value FALSE)
+	(name "DisabledByUser"))
+
+([proglangs_ProjectKB_Class84] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://www.w3.org/2002/07/owl#versionInfo")
+	(property_list [proglangs_ProjectKB_Class85]))
+
+([proglangs_ProjectKB_Class85] of  Property_List
+)
+
+([proglangs_ProjectKB_Class86] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://www.w3.org/2000/01/rdf-schema#isDefinedBy")
+	(property_list [proglangs_ProjectKB_Class87]))
+
+([proglangs_ProjectKB_Class87] of  Property_List
+)
+
+([proglangs_ProjectKB_Class88] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://www.w3.org/2000/01/rdf-schema#comment")
+	(property_list [proglangs_ProjectKB_Class89]))
+
+([proglangs_ProjectKB_Class89] of  Property_List
+)
+
+([proglangs_ProjectKB_Class90] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://www.w3.org/2000/01/rdf-schema#seeAlso")
+	(property_list [proglangs_ProjectKB_Class91]))
+
+([proglangs_ProjectKB_Class91] of  Property_List
+)
+
+([proglangs_ProjectKB_Class92] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://www.w3.org/2000/01/rdf-schema#label")
+	(property_list [proglangs_ProjectKB_Class93]))
+
+([proglangs_ProjectKB_Class93] of  Property_List
+)
+
+([proglangs_ProjectKB_Class99] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
 
 ([PROJECT] of  Project
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="http://www.dbpediaquery.info/profile/proglangs.owl#"
+     xml:base="http://www.dbpediaquery.info/profile/proglangs.owl"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:dpr="http://dbpedia.org/resource/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:dbo="http://dbpedia.org/ontology/"
+     xmlns:dbpcy="http://dbpedia.org/class/yago/"
+     xmlns:dbp="http://dbpedia.org/property/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about=""/>
+    <owl:ObjectProperty rdf:about="http://dbpedia.org/ontology/license">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/ProgrammingLanguage"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">license</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:Class rdf:about="http://dbpedia.org/ontology/Person">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Person</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="http://dbpedia.org/ontology/ProgrammingLanguage">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Programming Language</rdfs:label>
+    </owl:Class>
+    <owl:ObjectProperty rdf:about="http://dbpedia.org/property/designer">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/ProgrammingLanguage"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">designer</rdfs:label>
+        <rdfs:range rdf:resource="http://dbpedia.org/ontology/Person"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://dbpedia.org/property/influenced">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/ProgrammingLanguage"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">influenced</rdfs:label>
+        <rdfs:range rdf:resource="http://dbpedia.org/ontology/ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://dbpedia.org/property/influencedBy">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/ProgrammingLanguage"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">influencedBy</rdfs:label>
+        <rdfs:range rdf:resource="http://dbpedia.org/ontology/ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://dbpedia.org/property/paradigm">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/ProgrammingLanguage"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">paradigm</rdfs:label>
+        <rdfs:range rdf:resource="http://dbpedia.org/class/yago/ProgrammingParadigm"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://dbpedia.org/property/typing">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/ProgrammingLanguage"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">typing</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:Class rdf:about="http://dbpedia.org/class/yago/ProgrammingParadigm">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Programming Paradigm</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:about="http://xmlns.com/foaf/0.1/name">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+</rdf:RDF>
