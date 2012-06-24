@@ -25,6 +25,6 @@ case class ConstLiteral(lit: Literal) extends QueryObject{
 	override def toString = lit.stringValue
 }
 
-case class HasType() extends QueryPredicate{
+case object HasType extends QueryPredicate{
 	override def toString = "a"
 }

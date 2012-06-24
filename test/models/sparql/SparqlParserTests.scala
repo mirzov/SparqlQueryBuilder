@@ -51,41 +51,70 @@ class SparqlParserTests extends FunSpec {
 		it("should fail on " + v5){no(v5)}
 	}
 	
-	describe("stringPartUpToQuotEscape parser"){
+	describe("ConstLiteral parsers"){
 	  
-		def yes(input: String) = assertParsingSuccess(stringPartUpToQuotEscape, input)
-		def no(input: String) = assertParsingFailure(stringPartUpToQuotEscape, input)
-		
-		val s1 = "'string'"
-		val s2 = "st\\'"
-		val s3 = "st\\'ring\\'"
+		describe("plainLiteral"){
 		  
-		it("should fail on " + s1){no(s1)}
-		it("should successfully parse " + s2){yes(s2)}
-		it("when rep'ed, should match " + s3){
-			val parseRes = parseAll(rep(stringPartUpToQuotEscape), s3)
-			assert(parseRes.successful)
-			assert(parseRes.get === List("st\\'", "ring\\'"))
+			def yes(input: String) = assertParsingSuccess(plainLiteral, input)
+			def no(input: String) = assertParsingFailure(plainLiteral, input)
+			
+			val s1 = "'string'"
+			val s2 = "'st\\'ri\\'ng'"
+			val s3 = "''"
+			val s4 = "'\\''"
+			  
+			it("should successfully parse " + s1){yes(s1)}
+			it("should successfully parse " + s2){yes(s2)}
+			
+			it("should extract \"st'ri'ng\" from " + s2){
+				val parseRes = parseAll(plainLiteral, s2)
+				assert(parseRes.successful)
+				val strRes = parseRes.get.lit.stringValue
+				assert(strRes === "st'ri'ng")
+			}
+			
+			it("should successfully parse " + s3){yes(s3)}
+			it("should successfully parse " + s4){yes(s4)}
 		}
-	}
-	
-	describe("ConstLiteral parser, plainLiteral version"){
-	  
-		def yes(input: String) = assertParsingSuccess(plainLiteral, input)
-		def no(input: String) = assertParsingFailure(plainLiteral, input)
 		
-		val s1 = "'string'"
-		val s2 = "'st\\'ri\\'ng'"
+		describe("langLiteral"){
 		  
-		it("should successfully parse " + s1){yes(s1)}
-		it("should successfully parse " + s2){yes(s2)}
-		//it("should fail on " + s2){no(s2)}
+			def yes(input: String) = assertParsingSuccess(langLiteral, input)
+			def no(input: String) = assertParsingFailure(langLiteral, input)
+			
+			val s1 = "'string'@en"
+			val s2 = "'string'"
+			  
+			it("should successfully parse " + s1){yes(s1)}
+			it("should fail on " + s2){no(s2)}
+			
+			it("should extract an @en literal 'string' from " + s1){
+				val parseRes = parseAll(langLiteral, s1)
+				assert(parseRes.successful)
+				val res = parseRes.get.lit
+				assert(res.getLabel === "string")
+				assert(res.getLanguage === "en")
+			}
+		}
 		
-		it("should extract \"st'ri'ng\" from " + s2){
-			val parseRes = parseAll(plainLiteral, s2)
-			assert(parseRes.successful)
-			val strRes = parseRes.get.lit.stringValue
-			assert(strRes === "st'ri'ng")
+		describe("typedLiteral"){
+		  
+			def yes(input: String) = assertParsingSuccess(typedLiteral, input)
+			def no(input: String) = assertParsingFailure(typedLiteral, input)
+			
+			val s1 = "'string'^^<http://www.bbb.mmm>"
+			val s2 = "'string'^^<www.bbb.mmm>"
+			  
+			it("should successfully parse " + s1){yes(s1)}
+			it("should fail on " + s2){no(s2)}
+			
+			it("should correctly parse " + s1){
+				val parseRes = parseAll(typedLiteral, s1)
+				assert(parseRes.successful)
+				val res = parseRes.get.lit
+				assert(res.getLabel === "string")
+				assert(res.getDatatype.stringValue === "http://www.bbb.mmm")
+			}
 		}
 	}
 }

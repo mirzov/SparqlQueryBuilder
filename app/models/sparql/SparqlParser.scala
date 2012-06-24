@@ -8,9 +8,9 @@ object SparqlParser extends RegexParsers{
 
 	private val factory = new ValueFactoryImpl()
   
-	private def makeConstResource(uriCand: String): Option[ConstResource] = {
+	private def makeUri(uriCand: String): Option[URI] = {
 		try{
-			Some(ConstResource(factory.createURI(uriCand)))
+			Some(factory.createURI(uriCand))
 		}catch{
 		  	case _ => None
 		}
@@ -18,20 +18,40 @@ object SparqlParser extends RegexParsers{
 	
 	override def skipWhitespace = false
 	
-	def variable: Parser[Variable] = "?" ~> """\w+""".r ^^ {v => Variable(v)}
+	val variable: Parser[Variable] = "?" ~> """\w+""".r ^^ {v => Variable(v)}
   
-	def constResource: Parser[ConstResource] = "<" ~> """[^(\s|>)]+""".r <~ ">" ^? Function.unlift(makeConstResource)
+	val uriRes: Parser[URI] = "<" ~> """[^\s>]+""".r <~ ">"  ^? Function.unlift(makeUri)
 	
-	def hasType: Parser[HasType] = "a" ^^ {_ => HasType()}
+	val constResource: Parser[ConstResource] = uriRes ^^ {ConstResource(_)}
 	
-	def stringPartUpToQuotEscape: Parser[String] = """.*?\\'""".r
-	def stringEndingWithQuot: Parser[String] = ".*?'".r
+	val hasType: Parser[QueryPredicate] = "a" ^^ {_ => HasType}
 	
-	def plainLiteral: Parser[ConstLiteral] = "'" ~> rep(stringPartUpToQuotEscape) ~ stringEndingWithQuot ^^ {
-	  	case list ~ rest =>
-	  	  	println(list + " , " + rest)
-	  	  	val str = list.map(s => s.replace("\\'", "'")).mkString + rest.stripSuffix("'")
-	  	  	println(str)
-	  	  	ConstLiteral(factory.createLiteral(str))
+	val trivialString: Parser[String] = """[^\\']+""".r
+	val escapeSeq: Parser[String] = ".{2}".r ^? {
+	  	case "\\\\" => "\\"
+	  	case "\\'" => "'"
+	  	case "\\\"" => "\""
+	  	case "\\r" => "\r"
+	  	case "\\t" => "\t"
+	  	case "\\n" => "\n"
+	  	case "\\b" => "\b"
+	  	case "\\f" => "\f"
 	}
+	
+	val plainLiteralStr: Parser[String] = ("'" ~> rep(trivialString | escapeSeq)) <~ "'" ^^ (_.mkString)
+	
+	val plainLiteral: Parser[ConstLiteral] = plainLiteralStr ^^ {
+		s => ConstLiteral(factory.createLiteral(s))
+	}
+	
+	val langLiteral: Parser[ConstLiteral] = (plainLiteralStr <~ "@") ~ "\\w{2}".r ^^{
+		case str ~ lang => ConstLiteral(factory.createLiteral(str, lang))
+	}
+	
+	val typedLiteral: Parser[ConstLiteral] = (plainLiteralStr <~ "^^") ~ uriRes ^^ {
+	  	case str ~ uri => ConstLiteral(factory.createLiteral(str, uri))
+	}
+	
+	val constLiteral: Parser[ConstLiteral] = typedLiteral | langLiteral | plainLiteral
+	
 }
