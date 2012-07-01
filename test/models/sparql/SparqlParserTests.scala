@@ -84,9 +84,11 @@ class SparqlParserTests extends FunSpec {
 			
 			val s1 = "'string'@en"
 			val s2 = "'string'"
+			val s3 = "'bebe'@ru"
 			  
 			it("should successfully parse " + s1){yes(s1)}
 			it("should fail on " + s2){no(s2)}
+			it("should successfully parse " + s3){yes(s3)}
 			
 			it("should extract an @en literal 'string' from " + s1){
 				val parseRes = parseAll(langLiteral, s1)
@@ -114,6 +116,35 @@ class SparqlParserTests extends FunSpec {
 				val res = parseRes.get.lit
 				assert(res.getLabel === "string")
 				assert(res.getDatatype.stringValue === "http://www.bbb.mmm")
+			}
+		}
+	}
+	
+	describe("queryTriple parser"){
+	  
+		def yes(input: String) = assertParsingSuccess(queryTriple, input)
+		def no(input: String) = assertParsingFailure(queryTriple, input)
+		
+		val s1 = "?var a <http://www.bbb.mmm> ."
+		val s2 = "<http://www.bbb.mmm> ?pred ?o." //no space before comma
+		val s3 = "<http://www.bbb.mmm> ?pred ?o ." 
+		val s4 = "<http://www.bbb.mmm> ?pred 'bebe'@ru ."
+		val s5 = "?v <http://www.bbb.mmm> ?o ." 
+		  
+		it("should successfully parse " + s1){yes(s1)}
+		it("should fail on " + s2){no(s2)}
+		it("should successfully parse " + s3){yes(s3)}
+		it("should successfully parse " + s4){yes(s4)}
+		it("should successfully parse " + s5){yes(s5)}
+		
+		it("should correctly parse " + s1){
+			val parseRes = parseAll(queryTriple, s1)
+			assert(parseRes.successful)
+			parseRes.get match{
+			  	case QueryTriple(s: Variable, p: HasType.type, o: ConstResource) =>
+			  		assert(s.name === "var")
+			  		assert(o.uri.stringValue === "http://www.bbb.mmm")
+			  	case _ => fail("did not get the expected query triple")
 			}
 		}
 	}

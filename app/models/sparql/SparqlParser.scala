@@ -24,7 +24,7 @@ object SparqlParser extends RegexParsers{
 	
 	val constResource: Parser[ConstResource] = uriRes ^^ {ConstResource(_)}
 	
-	val hasType: Parser[QueryPredicate] = "a" ^^ {_ => HasType}
+	val hasType: Parser[HasType.type] = "a" ^^ {_ => HasType}
 	
 	val trivialString: Parser[String] = """[^\\']+""".r
 	val escapeSeq: Parser[String] = ".{2}".r ^? {
@@ -53,5 +53,16 @@ object SparqlParser extends RegexParsers{
 	}
 	
 	val constLiteral: Parser[ConstLiteral] = typedLiteral | langLiteral | plainLiteral
+	
+	val ws = whiteSpace
+	
+	val querySubject: Parser[QuerySubject] = constResource | variable 
+	val queryPredicate: Parser[QueryPredicate] = hasType | variable | constResource
+	val queryObject: Parser[QueryObject] = variable | constResource | constLiteral
+	
+	val queryTriple: Parser[QueryTriple] = (querySubject <~ ws) ~ (queryPredicate <~ ws) ~ (queryObject <~ ws <~ ".") ^^{
+	  	case qs ~ qp ~ qo => QueryTriple(qs, qp, qo)
+	}
+	
 	
 }
