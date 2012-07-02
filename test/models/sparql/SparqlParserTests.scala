@@ -148,4 +148,29 @@ class SparqlParserTests extends FunSpec {
 			}
 		}
 	}
+	
+	describe("query parser"){
+	  
+		def yes(input: String) = assertParsingSuccess(query, input)
+		def no(input: String) = assertParsingFailure(query, input)
+		
+		val s1 = "select ?var where{ ?var a <http://www.bbb.mmm> .?var2 ?bebe 'ke'@fr .} "
+		val s2 = "select?var where{?var2 ?bebe ?meme .}"
+		  
+		it("should successfully parse " + s1){yes(s1)}
+		it("should fail on " + s2){no(s2)}
+		
+		it("should correctly parse " + s1){
+			val parseRes = parseAll(query, s1)
+			assert(parseRes.successful)
+			parseRes.get match{
+			  	case q @ SparqlQuery(vars, triples) =>
+			  	  	assert(vars.length === 1)
+			  		assert(vars.head.name === "var")
+			  		assert(triples.length === 2)
+			  		assert(q.allVars.map(_.name) === Seq("var", "var2", "bebe"))
+			  	case _ => fail("did not get the expected select query")
+			}
+		}
+	}
 }

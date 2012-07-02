@@ -64,5 +64,9 @@ object SparqlParser extends RegexParsers{
 	  	case qs ~ qp ~ qo => QueryTriple(qs, qp, qo)
 	}
 	
-	
+	val query: Parser[SparqlQuery] = "select" ~> ws ~> rep1sep(variable, ws) ~ 
+		(ws ~ "where" ~ opt(ws) ~ "{" ~ opt(ws) ~> repsep(queryTriple, opt(ws))) <~
+		opt(ws) <~ "}" <~ opt(ws) ^^ {
+			case vars ~ triples => new SparqlQuery(vars, triples)
+		}
 }

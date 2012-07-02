@@ -9,7 +9,7 @@ trait QueryPredicate extends QueryNode
 trait QueryObject extends QueryNode
 
 case class Variable(name: String) extends QuerySubject with QueryPredicate with QueryObject{
-	override def toString = name
+	override def toString = "?" + name
 }
 
 case class AnonNode(id: Int) extends QuerySubject with QueryObject{
@@ -18,11 +18,17 @@ case class AnonNode(id: Int) extends QuerySubject with QueryObject{
 }
 
 case class ConstResource(uri: URI) extends QuerySubject with QueryPredicate with QueryObject{
-	override def toString = uri.stringValue
+	override def toString = "<" + uri.stringValue + ">"
 }
 
 case class ConstLiteral(lit: Literal) extends QueryObject{
-	override def toString = lit.stringValue
+  
+	def typeOrTag: String = {
+		if(lit.getLanguage == null) {
+			if(lit.getDatatype == null) "" else "^^<" + lit.getDatatype.stringValue + ">"
+		}else "@" + lit.getLanguage
+	}
+	override def toString = "'" + lit.getLabel + "'" + typeOrTag
 }
 
 case object HasType extends QueryPredicate{
